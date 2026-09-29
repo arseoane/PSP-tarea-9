@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Descarga {
+public class Descarga implements Runnable {
     private final int tardar;
     private final String nombreArchivo;
 
@@ -19,7 +19,7 @@ public class Descarga {
 
             }
 
-            System.out.println("[" + this.nombreArchivo + "] " + (this.tardar * 10) + " ms");
+            System.out.println("[" + this.nombreArchivo + "] completada en " + (this.tardar * 10) + " ms");
 
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
