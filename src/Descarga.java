@@ -3,7 +3,8 @@ import java.util.Random;
 public class Descarga implements Runnable {
     private final String nombreArchivo;
     private Random aleatorio = new Random();
-    public int getTardar = aleatorio.nextInt(100,500);
+
+    public int getTardar = aleatorio.nextInt(401) + 100;
 
     public Descarga(String nombre){
         this.nombreArchivo = nombre;
@@ -23,6 +24,5 @@ public class Descarga implements Runnable {
             throw new RuntimeException(e);
         }
     }
-
 
 }
