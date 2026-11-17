@@ -1,5 +1,4 @@
 import java.util.Arrays;
-import java.util.Collections;
 
 public class GestorDescargas {
     public static void main(String[] args) throws InterruptedException {
@@ -10,44 +9,37 @@ public class GestorDescargas {
 
         Descarga[] lista = Arrays.asList(d1, d2, d3, d4).toArray(new Descarga[0]);
 
-        int totalTiempo = 0;
-        int minTiempo = 0;
-        int maxTiempo = 0;
-
-        for (int i = 1; i < lista.length; i++) {
-            if (lista[i].getTardar < minTiempo) {
-                minTiempo = lista[i].getTardar;
-            }
-        }
-
-        for (int i = 1; i < lista.length; i++) {
-            if (lista[i].getTardar > maxTiempo) {
-                maxTiempo = lista[i].getTardar;
-            }
-        }
-
-        for (Descarga d : lista){
-            totalTiempo += d.getTardar;
-        }
-
-        Thread t1 = new Thread(d1);
-        t1.setName("Descarga-meditacion.mp4");
-        Thread t2 = new Thread(d2);
-        t2.setName("Descarga-meditacion.mp4");
-        Thread t3 = new Thread(d3);
-        t3.setName("Descarga-meditacion.mp4");
-        Thread t4 = new Thread(d4);
-        t4.setName("Descarga-meditacion.mp4");
+        Thread t1 = new Thread(d1, "Descarga-meditacion.mp4");
+        Thread t2 = new Thread(d2, "Descarga-mantras.mp3");
+        Thread t3 = new Thread(d3, "Descarga-horoscopo.pdf");
+        Thread t4 = new Thread(d4, "Descarga-cuarzos.png");
 
         Thread[] descargas = Arrays.asList(t1, t2, t3, t4).toArray(new Thread[0]);
 
-        for (Thread descarga : descargas){
+        long inicio = System.currentTimeMillis();
+        for (Thread descarga : descargas) {
             descarga.start();
+        }
+        for (Thread descarga : descargas) {
             descarga.join();
         }
-        System.out.println("Tiempo total de descargas: " + totalTiempo);
-        System.out.println("Descarga más rápida: " + minTiempo);
-        System.out.println("Descarga más lenta: " + maxTiempo);
+        long tiempoReal = System.currentTimeMillis() - inicio;
+
+        long totalTiempo = 0;
+        long minTiempo = Long.MAX_VALUE;
+        long maxTiempo = 0;
+        for (Descarga descarga : lista) {
+            long tiempo = descarga.getTiempoDescarga();
+            totalTiempo += tiempo;
+            minTiempo = Math.min(minTiempo, tiempo);
+            maxTiempo = Math.max(maxTiempo, tiempo);
+        }
+
+        System.out.println("Todas las descargas han terminado.");
+        System.out.println("Tiempo total de descargas: " + totalTiempo + " ms");
+        System.out.println("Tiempo real de ejecución: " + tiempoReal + " ms");
+        System.out.println("Descarga más rápida: " + minTiempo + " ms");
+        System.out.println("Descarga más lenta: " + maxTiempo + " ms");
 
     }
 }

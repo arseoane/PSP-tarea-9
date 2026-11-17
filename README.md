@@ -1,5 +1,3 @@
-| Ejecución | Descarga más lenta | Tiempo real (ms) | Suma (ms) |
-|:---------:|:------------------:|:----------------:|:---------:|
-|     1     |       467 ms       |      467 ms      |  1519 ms  |
-|     2     |       469 ms       |      469 ms      |  1425 ms  |
-|     3     |       450 ms       |      450 ms      |  1263 ms  |
+Las cuatro descargas se ejecutan en paralelo. El programa muestra el tiempo individual de
+cada hilo, la suma de esos tiempos y el tiempo real transcurrido entre el inicio del primer
+hilo y la finalización del último. Los tiempos varían en cada ejecución.
